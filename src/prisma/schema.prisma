@@ -1,12 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
-  // output   = "../generated/prisma"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,44 +8,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// user model
-model Users {
-  id String @id @default(uuid())
-  firstName String
-  lastName String
-  username String
-  emailAddress String @unique
-  password String
-  createdAt DateTime
+model User {
+  id           String   @id @default(uuid())
+  firstName    String
+  lastName     String
+  username     String
+  emailAddress String   @unique
+  password     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-// skill model
 model Skills {
-  id String @id @default(uuid())
+  id         String   @id @default(uuid())
   skillTitle String
-  createdAt DateTime @default(now())
+  createdAt  DateTime @default(now())
 }
 
-// project model
 model Projects {
-  id String @id @default(uuid())
-  title String
+  id                 String    @id @default(uuid())
+  title              String
   projectDescription String
-  projectLink String
-  demoLink String
-  techStack String[]
-  projectImage String
-  startDate DateTime
-  endDate DateTime?
-  createdAt DateTime @default(now())
+  projectLink        String
+  demoLink           String
+  techStack          String[]
+  projectImage       String
+  startDate          DateTime
+  endDate            DateTime?
+  createdAt          DateTime  @default(now())
 }
 
-// certification model
 model Certifications {
-  id String @id @default(uuid())
-  name String
-  issuer String
+  id                String   @id @default(uuid())
+  name              String
+  issuer            String
   certificationLink String
-  dateIssued DateTime
-  createdAt DateTime @default(now())
+  dateIssued        DateTime
+  createdAt         DateTime @default(now())
 }

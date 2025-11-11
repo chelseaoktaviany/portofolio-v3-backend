@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 
 // import routers
-import authRoutes from "./routers/auth";
 import userRoutes from "./routers/users";
 
 // error handler

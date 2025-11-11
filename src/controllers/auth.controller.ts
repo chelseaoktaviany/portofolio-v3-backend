@@ -16,17 +16,17 @@ export const registerUser = async ({
   emailAddress,
   password,
 }: UserTypes) => {
-  // Hash password before storing
+  // // Hash password before storing
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = await prisma.users.create({
+  // fix this user creation
+  const user = await prisma.user.create({
     data: {
-      firstName,
-      lastName,
-      username,
-      emailAddress,
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      emailAddress: emailAddress,
       password: hashedPassword,
-      createdAt: new Date(),
     },
     select: {
       id: true,
@@ -37,6 +37,5 @@ export const registerUser = async ({
       createdAt: true,
     },
   });
-
   return user;
 };
