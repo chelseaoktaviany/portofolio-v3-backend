@@ -25,8 +25,6 @@ export const registerSchema = z.object({
     }),
 });
 
-export type RegisterSchema = z.infer<typeof registerSchema>;
-
 // login schema
 export const loginSchema = z.object({
   body: z.object({

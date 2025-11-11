@@ -1,17 +1,17 @@
 import { Router } from "express";
 
 import { registerUser } from "../controllers/auth.controller";
-
-import { registerSchema, RegisterSchema } from "../validators/users.validator";
+import { registerSchema } from "../validators/auth.validator";
 
 const router = Router();
 
-router.post("/", async (req, res, next) => {
+router.post("/register", async (req, res, next) => {
+  const data = registerSchema.parse({ body: req.body });
+
+  const user = await registerUser(data.body);
+
   try {
-    const data: RegisterSchema = registerSchema.parse({ body: req.body });
-
-    const user = await registerUser(data.body);
-
+    // sending response
     res.status(201).json({
       id: user.id,
       firstName: user.firstName,

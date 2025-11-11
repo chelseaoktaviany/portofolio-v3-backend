@@ -1,7 +1,7 @@
 import prisma from "../lib/prisma";
 import bcrypt from "bcryptjs";
 
-interface UserTypes {
+interface UserType {
   firstName: string;
   lastName: string;
   username: string;
@@ -15,18 +15,19 @@ export const registerUser = async ({
   username,
   emailAddress,
   password,
-}: UserTypes) => {
+}: UserType) => {
   // // Hash password before storing
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // fix this user creation
-  const user = await prisma.user.create({
+  const user = await prisma.users.create({
     data: {
       firstName: firstName,
       lastName: lastName,
       username: username,
       emailAddress: emailAddress,
       password: hashedPassword,
+      createdAt: new Date(),
     },
     select: {
       id: true,
@@ -37,5 +38,6 @@ export const registerUser = async ({
       createdAt: true,
     },
   });
+
   return user;
 };
