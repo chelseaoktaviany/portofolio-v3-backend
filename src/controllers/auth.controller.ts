@@ -16,7 +16,7 @@ export const registerUser = async ({
   emailAddress,
   password,
 }: UserType) => {
-  // // Hash password before storing
+  // Hash password before storing
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // fix this user creation
@@ -40,4 +40,24 @@ export const registerUser = async ({
   });
 
   return user;
+};
+
+export const loginUser = async (emailAddress: string, password: string) => {
+  const user = await prisma.users.findUnique({ where: { emailAddress } });
+
+  if (!user) {
+    throw new Error("Invalid e-mail address or password");
+  }
+
+  // check if password is correct with registered password
+  const isValid = await bcrypt.compare(password, user.password);
+
+  if (!isValid) {
+    throw new Error("Invalid e-mail address or password");
+  }
+
+  // remove password before returning
+  const { password: _, ...safeUser } = user;
+
+  return safeUser;
 };

@@ -27,8 +27,6 @@ export const registerSchema = z.object({
 
 // login schema
 export const loginSchema = z.object({
-  body: z.object({
-    emailAddress: z.email(),
-    password: z.string().min(6),
-  }),
+  emailAddress: z.email("Invalid e-mail address"),
+  password: z.string().min(6),
 });

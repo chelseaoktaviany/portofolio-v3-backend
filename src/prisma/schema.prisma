@@ -17,6 +17,16 @@ model Users {
   password     String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  
+  sessions    Session[]
+}
+
+model Session {
+  id String @id @default(uuid())
+  userId String
+  users Users @relation(fields: [userId], references: [id])
+  expiredAt DateTime
+  createdAt DateTime @default(now())
 }
 
 model Skills {
