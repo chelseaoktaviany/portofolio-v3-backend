@@ -2,13 +2,7 @@ import prisma from "../lib/prisma";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-interface UserType {
-  firstName: string;
-  lastName: string;
-  username: string;
-  emailAddress: string;
-  password: string;
-}
+import { UserType } from "../types/users";
 
 export const registerUser = async ({
   firstName,

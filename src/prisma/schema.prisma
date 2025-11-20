@@ -31,6 +31,7 @@ model Session {
 model Skills {
   id         String   @id @default(uuid())
   skillTitle String
+  skillImage String
   createdAt  DateTime @default(now())
 }
 

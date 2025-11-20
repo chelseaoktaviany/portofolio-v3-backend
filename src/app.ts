@@ -6,6 +6,7 @@ import morgan from "morgan";
 
 // import routers
 import authRoutes from "./routers/auth";
+import skillRoutes from "./routers/skills";
 
 // error handler
 import { errorHandler } from "./middleware/errorHandler";
@@ -32,6 +33,7 @@ app.use(express.json());
 
 // api routes
 app.use("/api/auth", authRoutes);
+app.use("/api/skills", skillRoutes);
 
 // error handler
 app.use(errorHandler);
