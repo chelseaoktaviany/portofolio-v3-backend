@@ -1,5 +1,6 @@
 import prisma from "../lib/prisma";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 interface UserType {
   firstName: string;
@@ -56,8 +57,14 @@ export const loginUser = async (emailAddress: string, password: string) => {
     throw new Error("Invalid e-mail address or password");
   }
 
+  const secret = process.env.JWT_SECRET;
+
+  const token = jwt.sign({ id: user.id, username: user.username }, secret, {
+    expiresIn: "2d",
+  });
+
   // remove password before returning
   const { password: _, ...safeUser } = user;
 
-  return safeUser;
+  return { safeUser, token };
 };

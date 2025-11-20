@@ -3,7 +3,7 @@ import { Router } from "express";
 import { registerUser, loginUser } from "../controllers/auth.controller";
 import { registerSchema, loginSchema } from "../validators/auth.validator";
 
-import auth from "../lib/auth";
+// import auth from "../lib/auth";
 
 const router = Router();
 
@@ -33,16 +33,14 @@ router.post("/login", async (req, res, next) => {
     const user = await loginUser(emailAddress, password);
 
     // using betterAuth (server-side authentication)
-    const data = await auth.api.signInEmail({
-      body: { email: user.emailAddress, password },
-      asResponse: true,
-    });
-
-    console.log(data);
+    // const data = await auth.api.signInEmail({
+    //   body: { email: user.emailAddress, password },
+    //   asResponse: true,
+    // });
 
     res.status(200).json({
       message: "Logged in successfully!",
-      data,
+      user,
     });
   } catch (err) {
     next(err);
