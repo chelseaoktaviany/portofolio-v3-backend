@@ -22,10 +22,10 @@ export const registerUser = async ({
   // fix this user creation
   const user = await prisma.users.create({
     data: {
-      firstName: firstName,
-      lastName: lastName,
-      username: username,
-      emailAddress: emailAddress,
+      firstName,
+      lastName,
+      username,
+      emailAddress,
       password: hashedPassword,
       createdAt: new Date(),
     },

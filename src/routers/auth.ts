@@ -32,14 +32,17 @@ router.post("/login", async (req, res, next) => {
 
     const user = await loginUser(emailAddress, password);
 
-    const session = await auth.login({
-      email: emailAddress,
-      password,
+    // using betterAuth (server-side authentication)
+    const data = await auth.api.signInEmail({
+      body: { email: user.emailAddress, password },
+      asResponse: true,
     });
+
+    console.log(data);
 
     res.status(200).json({
       message: "Logged in successfully!",
-      session,
+      data,
     });
   } catch (err) {
     next(err);
